@@ -36,6 +36,12 @@ public class User implements UserDetails {
 
     private LocalDateTime datePasswordExpired;
 
+    @Column(name = "failed_login_attempts")
+    private int failedLoginAttempts;
+
+    @Column(name = "lockout_time")
+    private LocalDateTime lockoutTime;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
