@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -26,7 +27,8 @@ public class PaymentServiceImpl implements PaymentService {
 
 
     @Override
-    public PaymentResponse processPayment(Authentication authentication) {
+    @Transactional
+    public PaymentResponse performPayment(Authentication authentication) {
         User user = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new NotFoundException("User not found."));
 

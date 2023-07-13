@@ -4,5 +4,5 @@ import com.maksnurgazy.dto.PaymentResponse;
 import org.springframework.security.core.Authentication;
 
 public interface PaymentService {
-    PaymentResponse processPayment(Authentication authentication);
+    PaymentResponse performPayment(Authentication authentication);
 }

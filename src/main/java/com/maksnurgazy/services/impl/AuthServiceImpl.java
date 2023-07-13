@@ -29,7 +29,7 @@ public class AuthServiceImpl implements AuthService {
     private final JwtUserDetailsService userDetailsService;
 
     private static final int MAX_FAILED_LOGIN_ATTEMPTS = 3;
-    private static final int LOCKOUT_DURATION_MINUTES =60*24;
+    private static final int LOCKOUT_DURATION_MINUTES = 60 * 24;
 
     @Override
     public JwtResponse login(JwtRequest jwtRequest) {

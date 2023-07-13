@@ -18,6 +18,6 @@ public class PaymentController {
 
     @PostMapping("/payment")
     public PaymentResponse payment(Authentication authentication) {
-        return paymentService.processPayment(authentication);
+        return paymentService.performPayment(authentication);
     }
 }
