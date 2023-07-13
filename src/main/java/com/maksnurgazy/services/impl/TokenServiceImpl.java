@@ -7,6 +7,7 @@ import com.maksnurgazy.services.TokenService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Optional;
 
@@ -14,14 +15,27 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class TokenServiceImpl implements TokenService {
-    private final TokenRepository repository;
+    private final TokenRepository tokenRepository;
+    public static final String BEARER = "Bearer ";
 
     public Optional<Token> findById(String id) {
-        return repository.findById(id);
+        return tokenRepository.findById(id);
     }
 
     @Override
     public void save(Token token) {
-        repository.save(token);
+        tokenRepository.save(token);
+    }
+
+    @Override
+    public void delete(String bearerToken){
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER)) {
+            tokenRepository.deleteById(bearerToken.substring(7));
+        }
+    }
+
+    @Override
+    public boolean isTokenExists(String token) {
+        return findById(token).isPresent();
     }
 }

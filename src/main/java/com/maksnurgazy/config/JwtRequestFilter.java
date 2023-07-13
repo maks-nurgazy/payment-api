@@ -1,5 +1,6 @@
 package com.maksnurgazy.config;
 
+import com.maksnurgazy.services.TokenService;
 import com.maksnurgazy.services.impl.JwtUserDetailsService;
 import com.maksnurgazy.util.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -38,6 +39,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         // only the Token
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
             jwtToken = requestTokenHeader.substring(7);
+
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
             } catch (IllegalArgumentException e) {

@@ -51,6 +51,10 @@ public class JwtTokenUtil implements Serializable {
         return claimsResolver.apply(claims);
     }
 
+    public boolean isTokenExists(String token){
+        return tokenService.isTokenExists(token);
+    }
+
     private Claims getAllClaimsFromToken(String token) {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
@@ -85,8 +89,9 @@ public class JwtTokenUtil implements Serializable {
 
     //validate token
     public Boolean validateToken(String token, UserDetails userDetails) {
+
         final String username = getUsernameFromToken(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token) && isTokenExists(token));
     }
 
     public JwtResponse getTokenResponse(EntryValue<String, Date> value, String username) {
@@ -105,6 +110,7 @@ public class JwtTokenUtil implements Serializable {
         token.setExpired(expired);
         token.setType("Bearer");
         token.setUsername(username);
+        token.setCreatedDate(LocalDateTime.now());
 
         tokenService.save(token);
 

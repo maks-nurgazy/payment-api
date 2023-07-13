@@ -28,7 +28,6 @@ public class Token {
     @Column(updatable = false)
     private LocalDateTime expired;
 
-    @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdDate;
 }
